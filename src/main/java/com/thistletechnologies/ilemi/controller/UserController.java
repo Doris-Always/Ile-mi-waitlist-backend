@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/join-wait-list")
-    public ResponseEntity<JoinWaitingListResponse> createProduct(@RequestBody JoinWaitingListRequest joinWaitingListRequest){
+    public ResponseEntity<JoinWaitingListResponse> joinWaitList(@RequestBody JoinWaitingListRequest joinWaitingListRequest){
         return new ResponseEntity<>(userService.joinWaitingList(joinWaitingListRequest), HttpStatus.CREATED);
     }
 
