@@ -1,15 +1,20 @@
-package com.thistletechnologies.ilemi.service;
+package com.thistletechnologies.ilemi.serviceImpl;
 
 import com.thistletechnologies.ilemi.dto.request.JoinWaitingListRequest;
 import com.thistletechnologies.ilemi.dto.response.JoinWaitingListResponse;
+import com.thistletechnologies.ilemi.exceptions.InvalidInputException;
+import com.thistletechnologies.ilemi.exceptions.NoCategorySelectedException;
 import com.thistletechnologies.ilemi.exceptions.UserException;
 import com.thistletechnologies.ilemi.exceptions.UserExistException;
+import com.thistletechnologies.ilemi.model.Category;
 import com.thistletechnologies.ilemi.model.User;
 import com.thistletechnologies.ilemi.repository.UserRepository;
-import com.thistletechnologies.ilemi.serviceImplementation.UserService;
+import com.thistletechnologies.ilemi.service.UserService;
+import com.thistletechnologies.ilemi.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +27,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JoinWaitingListResponse joinWaitingList(JoinWaitingListRequest waitingListRequest) {
-        if (userRepository.findUserByEmail(waitingListRequest.getEmail().toLowerCase()).isPresent()) throw new UserExistException("user already exist");
+        if (!UserValidator.isValidEmail(waitingListRequest.getEmail())) {
+            throw new InvalidInputException("Invalid email format");
+        }
+
+        if (!UserValidator.isValidPhoneNumber(waitingListRequest.getPhoneNumber())) {
+            throw new InvalidInputException("Invalid phone number format");
+        }
+        if (!UserValidator.isValidWhatsappNumber(waitingListRequest.getWhatsappNumber())) {
+            throw new InvalidInputException("Invalid phone number format");
+        }
+
+        if (userRepository.findUserByEmail(waitingListRequest.getEmail().toLowerCase()).isPresent())
+            throw new UserExistException("user already exist");
+//        String categoryString = waitingListRequest.getCategory().toString();
         User user = User.builder()
                 .fullName(waitingListRequest.getFullName())
                 .phoneNumber(waitingListRequest.getPhoneNumber())
                 .whatsappNumber(waitingListRequest.getWhatsappNumber())
                 .email(waitingListRequest.getEmail())
-                .category(waitingListRequest.getCategory())
+                .category(convertToEnum(waitingListRequest.getCategory()))
                 .build();
         userRepository.save(user);
 
@@ -37,6 +55,12 @@ public class UserServiceImpl implements UserService {
                 .id(user.getId())
                 .email(user.getEmail())
                 .build();
+    }
+    private Category convertToEnum(String selectedCategory){
+        return Arrays.stream(Category.values())
+                .filter(category -> category.toString().equals(selectedCategory.strip().toUpperCase()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category string"));
     }
 
     @Override

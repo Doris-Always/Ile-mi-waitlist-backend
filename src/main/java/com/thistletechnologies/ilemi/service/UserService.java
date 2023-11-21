@@ -1,4 +1,4 @@
-package com.thistletechnologies.ilemi.serviceImplementation;
+package com.thistletechnologies.ilemi.service;
 
 import com.thistletechnologies.ilemi.dto.request.JoinWaitingListRequest;
 import com.thistletechnologies.ilemi.dto.response.JoinWaitingListResponse;

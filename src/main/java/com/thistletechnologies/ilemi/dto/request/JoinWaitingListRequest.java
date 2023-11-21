@@ -10,5 +10,5 @@ public class JoinWaitingListRequest {
     private String email;
     private String phoneNumber;
     private String whatsappNumber;
-    private Category category;
+    private String category;
 }

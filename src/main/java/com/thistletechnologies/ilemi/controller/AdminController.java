@@ -1,9 +1,7 @@
 package com.thistletechnologies.ilemi.controller;
 
-import com.thistletechnologies.ilemi.dto.request.JoinWaitingListRequest;
-import com.thistletechnologies.ilemi.dto.response.JoinWaitingListResponse;
 import com.thistletechnologies.ilemi.model.User;
-import com.thistletechnologies.ilemi.serviceImplementation.UserService;
+import com.thistletechnologies.ilemi.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

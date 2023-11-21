@@ -4,7 +4,7 @@ import com.thistletechnologies.ilemi.dto.request.JoinWaitingListRequest;
 import com.thistletechnologies.ilemi.dto.response.JoinWaitingListResponse;
 import com.thistletechnologies.ilemi.model.Category;
 import com.thistletechnologies.ilemi.model.User;
-import com.thistletechnologies.ilemi.serviceImplementation.UserService;
+import com.thistletechnologies.ilemi.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
