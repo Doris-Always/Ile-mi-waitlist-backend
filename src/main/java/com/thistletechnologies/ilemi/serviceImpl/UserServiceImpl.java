@@ -12,6 +12,7 @@ import com.thistletechnologies.ilemi.repository.UserRepository;
 import com.thistletechnologies.ilemi.service.UserService;
 import com.thistletechnologies.ilemi.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -23,7 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+    @Autowired
+     UserRepository userRepository;
 
     @Override
     public JoinWaitingListResponse joinWaitingList(JoinWaitingListRequest waitingListRequest) {

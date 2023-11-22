@@ -28,7 +28,6 @@ public class UserServiceTest {
     private JoinWaitingListResponse joinWaitingListResponse;
 
 
-
     @BeforeEach
     void setup(){
         waitingListRequest= new JoinWaitingListRequest();

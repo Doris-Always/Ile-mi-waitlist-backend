@@ -2,6 +2,7 @@ package com.thistletechnologies.ilemi.controller;
 
 import com.thistletechnologies.ilemi.model.User;
 import com.thistletechnologies.ilemi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
-        private final UserService userService;
-
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
+        @Autowired
+         UserService userService;
 
 
     @GetMapping("/get-user-by-id/{userId}")
