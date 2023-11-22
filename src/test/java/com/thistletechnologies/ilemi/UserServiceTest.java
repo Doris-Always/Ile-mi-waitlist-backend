@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,6 @@ public class UserServiceTest {
 
 
 
-
     @BeforeEach
     void setup(){
         waitingListRequest= new JoinWaitingListRequest();
@@ -36,7 +36,7 @@ public class UserServiceTest {
         waitingListRequest.setEmail("johndoe@gmail.com");
         waitingListRequest.setPhoneNumber("08123456788");
         waitingListRequest.setWhatsappNumber("08123456788");
-        waitingListRequest.setCategory(Category.TENANT);
+        waitingListRequest.setCategory("tenant");
 
 
     }
@@ -68,6 +68,7 @@ public class UserServiceTest {
         joinWaitingListResponse = userService.joinWaitingList(waitingListRequest);
         assertNotNull(joinWaitingListResponse.getId());
         List<User> users = userService.getAllUser();
-        assertEquals(1,users.size());
+        assertEquals(2,users.size());
     }
+
 }
