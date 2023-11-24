@@ -40,8 +40,14 @@ public class UserServiceImpl implements UserService {
             throw new InvalidInputException("Invalid phone number format");
         }
 
-        if (userRepository.findUserByEmail(waitingListRequest.getEmail().toLowerCase()).isPresent())
-            throw new UserExistException("user already exist");
+        if (userRepository.findUserByEmail(waitingListRequest.getEmail().toLowerCase()).isPresent()){
+
+            return JoinWaitingListResponse.builder()
+                    .message("user is already registered")
+                    .build();
+        }
+
+//            throw new UserExistException("user already exist");
 //        String categoryString = waitingListRequest.getCategory().toString();
         User user = User.builder()
                 .fullName(waitingListRequest.getFullName())
@@ -56,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return JoinWaitingListResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
+                .message("user registered successfully")
                 .build();
     }
     private Category convertToEnum(String selectedCategory){

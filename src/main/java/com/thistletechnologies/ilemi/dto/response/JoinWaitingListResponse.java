@@ -8,4 +8,5 @@ import lombok.Data;
 public class JoinWaitingListResponse {
     private String id;
     private String email;
+    private String message;
 }
